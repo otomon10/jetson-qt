@@ -27,8 +27,7 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     led.cpp \
-    switch.cpp \
-    gpio.cpp
+    switch.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -44,5 +43,4 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /home/nvidia/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    memo
+DISTFILES +=

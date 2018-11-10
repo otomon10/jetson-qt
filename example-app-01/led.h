@@ -1,21 +1,28 @@
 #ifndef LED_H
 #define LED_H
 
+#include <QObject>
 #include "gpio.h"
 
-class Led : public Gpio{
+class Led : public QObject, public Gpio{
+    Q_OBJECT
+
+public:
+    enum LedEvent{
+        LED_ON,
+        LED_OFF
+    };
+    explicit Led(int p, Direction d);
+    ~Led();
+    int getValue();
+    void setValue(int d);
+
 private:
     int pin;
     int dir;
-    int value;
-public:
-    explicit Led(int p, Direction d);
-    ~Led(void);
-    int getValue();
-    void setValue(int d);
-    void on();
-    void off();
-    int state();
+
+private slots:
+    void led_event(Led::LedEvent event);    // Need Led:: for MetaType
 };
 
 #endif // LED_H

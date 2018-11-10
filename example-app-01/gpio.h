@@ -7,8 +7,7 @@ public:
         OUT,
         IN
     };
-
-    virtual ~Gpio() = 0;
+    virtual ~Gpio(){}
     virtual int getValue() = 0;
     virtual void setValue(int v) = 0;
 };

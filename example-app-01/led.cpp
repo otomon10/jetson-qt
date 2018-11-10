@@ -1,32 +1,41 @@
 #include "led.h"
 #include <fstream>
+#include <QDebug>
 
 using namespace std;
 
-Led::Led(int p, Direction d){
-    pin = p;
-    dir = d;
-    value = 0;
+Led::Led(int p, Direction d) :
+    pin(p),
+    dir(d)
+{
 }
-Led::~Led(void){
+
+Led::~Led()
+{
 }
-int Led::getValue(){
+
+int Led::getValue()
+{
     string fname1;
     string fname2;
     fname1 = "/sys/class/gpio/gpio";
     fname2 = "/value";
     ifstream fin(fname1 + to_string(pin) +fname2);
     if(fin.fail()){
-        throw "fin failed.\n";
+        throw "file open failed. Please check permission.\n";
     }
     string str;
     fin >> str;
-    value = atoi(str.c_str());
-    return value;
+    return atoi(str.c_str());
 }
-void Led::setValue(int v){
+
+void Led::setValue(int v)
+{
     if(dir == IN){
         throw "setValue() Failed. Please set direction = OUT.\n";
+    }
+    if(v == getValue()){
+        return;
     }
     string fname1;
     string fname2;
@@ -34,17 +43,20 @@ void Led::setValue(int v){
     fname2 = "/value";
     ofstream fout(fname1 + to_string(pin) +fname2);
     if(fout.fail()){
-        throw "fout failed.\n";
+        throw "file open failed. Please check permission.\n";
     }
     fout << to_string(v);
-    value = v;
 }
-void Led::on(){
-    setValue(1);
-}
-void Led::off(){
-    setValue(0);
-}
-int Led::state(){
-    return getValue();
+
+void Led::led_event(Led::LedEvent event)
+{
+    try
+    {
+        LED_ON == event ? setValue(1) : setValue(0);
+    }
+    catch(const char* err)
+    {
+        qWarning() << err;
+        exit(EXIT_FAILURE);
+    }
 }

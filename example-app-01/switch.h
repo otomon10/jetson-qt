@@ -27,7 +27,7 @@ protected:
     void run();
 
 signals:
-    void switch_event(Switch::SwitchEvent event);
+    void switch_event(Switch::SwitchEvent event);   // Need Led:: for MetaType
 };
 
 #endif // SWITCH_H
