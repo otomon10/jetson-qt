@@ -20,11 +20,9 @@ MainWindow::~MainWindow()
 void MainWindow::setFrameSWStyleSheet(QFrame *f, Switch::SwitchEvent event)
 {
     if(Switch::SW_PUSH == event){
-        qDebug() << f->objectName() + " pushed";
         f->setStyleSheet("background-color:Green");
     }
     else if (Switch::SW_RELEASE == event){
-        qDebug() << f->objectName() + " released";
         f->setStyleSheet("background-color:None");
     }
 }
@@ -34,10 +32,8 @@ void MainWindow::checkSWState()
     if(ui->frame_sw1->styleSheet() == "background-color:Green" ||
        ui->frame_sw2->styleSheet() == "background-color:Green" ||
        ui->frame_sw3->styleSheet() == "background-color:Green" ){
-       qDebug() << "LED ON";
        Q_EMIT led_event(Led::LedEvent::LED_ON);
     } else {
-       qDebug() << "LED OFF";
        Q_EMIT led_event(Led::LedEvent::LED_OFF);
     }
 }

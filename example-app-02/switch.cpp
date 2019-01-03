@@ -50,11 +50,8 @@ void Switch::run()
                     continue;
                 }
                 if(1 == value){
-                    //emit switch_event(SW_PUSH);
                     switch_event(SW_PUSH);
-
                 } else {
-                    //emit switch_event(SW_RELEASE);
                     switch_event(SW_RELEASE);
                 }
                 prev_value = value;
