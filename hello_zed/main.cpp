@@ -1,6 +1,3 @@
-#include "mainwindow.h"
-#include <QApplication>
-
 #include <sl/Camera.hpp>
 
 using namespace sl;

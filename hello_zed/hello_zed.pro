@@ -1,6 +1,4 @@
-QT       += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       += core
 
 TARGET = hello_zed
 TEMPLATE = app
@@ -10,14 +8,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp
+        main.cpp
 
-HEADERS += \
-        mainwindow.h
+HEADERS +=
 
-FORMS += \
-        mainwindow.ui
+FORMS +=
 
 INCLUDEPATH += /home/ubuntu/JetPack/64_TX1/Linux_for_Tegra/rootfs/usr/local/zed/include \
                /home/ubuntu/JetPack/64_TX1/Linux_for_Tegra/rootfs/usr/local/cuda/include
