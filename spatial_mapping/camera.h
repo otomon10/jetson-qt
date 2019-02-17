@@ -25,8 +25,6 @@ private:
     sl::InitParameters initParameters;
     sl::SpatialMappingParameters spatialMappingParams;
     sl::MeshFilterParameters filterParams;
-
-    bool enabled;
 };
 
 #endif // CAMERA_H

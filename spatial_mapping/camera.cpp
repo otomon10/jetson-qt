@@ -15,8 +15,6 @@ Camera::Camera()
 
     // Filter parameters
     filterParams.set(sl::MeshFilterParameters::MESH_FILTER_LOW);
-
-    enabled = false;
 }
 
 Camera::~Camera()
@@ -30,13 +28,12 @@ int Camera::open()
     if (err != sl::ERROR_CODE::SUCCESS) {
         return -1;
     }
-    enabled = true;
     return 0;
 }
 
 int Camera::startMapping()
 {
-    if(!enabled) return -1;
+    if(!zed.isOpened()) return -1;
 
     zed.enableTracking();
     zed.enableSpatialMapping(spatialMappingParams);
@@ -74,7 +71,7 @@ int Camera::startMapping()
 
 int Camera::stopMapping()
 {
-    if(!enabled) return -1;
+    if(!zed.isOpened()) return -1;
 
     sl::Mesh wholeMesh;
     zed.extractWholeMesh(wholeMesh);
@@ -95,7 +92,7 @@ int Camera::stopMapping()
 
 int Camera::grab()
 {
-    if(!enabled) return -1;
+    if(!zed.isOpened()) return -1;
 
     sl::ERROR_CODE err = zed.grab();
     if (err != sl::ERROR_CODE::SUCCESS) {
@@ -106,6 +103,8 @@ int Camera::grab()
 
 std::string Camera::getTrackingState()
 {
+    if(!zed.isOpened()) return nullptr;
+
     sl::Pose pose;
     trackingState = zed.getPosition(pose);
     return sl::toString(trackingState).c_str();
@@ -113,6 +112,8 @@ std::string Camera::getTrackingState()
 
 std::string Camera::getSpatialMappingState()
 {
+    if(!zed.isOpened()) return nullptr;
+
     spatialMappingState = zed.getSpatialMappingState();
     return sl::toString(spatialMappingState).c_str();
 }
